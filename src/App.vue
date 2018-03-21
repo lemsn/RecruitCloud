@@ -1,13 +1,23 @@
 <template>
   <div id="app">
+    <p @click="showMenu">菜单</p>
     app.vue页面
+    <Menu ref='menu'></Menu>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Menu from 'components/menu/menu'
 export default {
-  name: 'App'
+  methods:{
+    showMenu(){
+      this.$refs.menu._showToggle()
+    }
+  },
+  components:{
+    Menu
+  }
 }
 </script>
 
