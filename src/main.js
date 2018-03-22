@@ -8,8 +8,12 @@ import vueLazyload from 'vue-lazyLoad'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/fonts/iconfont.css'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 
-Vue.use(ElementUI);
+Vue.use(ElementUI)
+Vue.use(MintUI)
+
 Vue.config.productionTip = false
 // fastclick.attach(document.body)
 

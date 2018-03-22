@@ -11,7 +11,7 @@
                 <el-input class="my-input" v-model="password" placeholder="请输入密码"></el-input>
             </MyLine>
             <MyLine>
-                <el-button @click="login" class="my-button w100" :disabled="canLogin" type="primary">登录</el-button>
+                <mt-button @click="login" class="my-button w100" :disabled="canLogin" type="primary">登录</mt-button>
             </MyLine>
             <MyLine class="flex-row-between">
                 <router-link class="link" to="/sendPW">忘记密码</router-link>

@@ -5,18 +5,31 @@
                 <Back></Back>
             </div>
         </Header>
-        <el-steps class="steps" :active="num" :align-center="align">
+        <el-steps class="steps" :active="num" :align-center=true>
             <el-step title="进行中"></el-step>
             <el-step></el-step>
         </el-steps>
-
         <MyLine>
-            头像
+            <mt-field class="input-rtl" :disableClear=true label="真实姓名" placeholder="请输入您的真实姓名"></mt-field>
+            <mt-cell title="性别">
+                <span @click="openPicker()">{{sex}}</span>
+            </mt-cell>
+            <mt-cell title="所在地区">
+                <span>请选择所在地区</span>
+            </mt-cell>
         </MyLine>
 
         <MyLine>
-            <el-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</el-button>
+            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
         </MyLine>
+
+        <mt-datetime-picker
+            ref="picker"
+            type="date"
+
+            >
+        </mt-datetime-picker>
+
     </div>
 </template>
 
@@ -29,7 +42,7 @@ export default{
     data(){
         return{
             num:1,
-            align:true
+            sex:'请选择性别'
         }
     },
     computed:{
@@ -40,6 +53,9 @@ export default{
     methods:{
         next(){
             this.$router.push('registerInfo2')
+        },
+        openPicker() {
+            this.$refs.picker.open();
         }
     },
     components:{

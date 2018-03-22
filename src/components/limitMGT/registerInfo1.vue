@@ -35,7 +35,7 @@
             <el-input class="my-input" type="password" placeholder="请再输入一次密码"></el-input>
         </MyLine>
         <MyLine>
-            <el-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</el-button>
+            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
         </MyLine>
     </div>
 </template>

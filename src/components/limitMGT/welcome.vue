@@ -6,12 +6,12 @@
         <div class="welcome-middle">
     		<router-link to="/login">
                 <MyLine>
-                    <el-button class="my-button w100" type="primary">登录</el-button>
+                    <mt-button class="my-button w100" type="primary">登录</mt-button>
                 </MyLine>
             </router-link>
     		<router-link to="/registerInfo1">
                 <MyLine>
-                    <el-button class="my-button w100" type="primary" plain>注册</el-button>
+                    <mt-button class="my-button w100" type="primary" plain>注册</mt-button>
                 </MyLine>
             </router-link>
         </div>

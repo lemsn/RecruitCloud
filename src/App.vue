@@ -46,5 +46,6 @@ export default {
   bottom:0
   left:0
   right:0
-
+.mint-cell-text
+  color: #232b38
 </style>
