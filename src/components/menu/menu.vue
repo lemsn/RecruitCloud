@@ -26,6 +26,7 @@ export default{
 <style scoped lang="stylus">
 .nav
     position:fixed
+    z-index:20
     top:0
     left:0
     background:#000

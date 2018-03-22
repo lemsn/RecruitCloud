@@ -1,5 +1,5 @@
 <template>
-    <div class="button-big">
+    <div class="line-big">
         <slot></slot>
     </div>
 </template>
@@ -11,8 +11,8 @@ export default{
 </script>
 
 <style lang="stylus">
-.button-big
+.line-big
     display:block
     width:100%
-    padding:0 10%
+    padding:0 5%
 </style>

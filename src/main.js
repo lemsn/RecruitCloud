@@ -7,10 +7,13 @@ import store from './store'
 import vueLazyload from 'vue-lazyLoad'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/fonts/iconfont.css'
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
-fastclick.attach(document.body)
+// fastclick.attach(document.body)
+
+
 
 /* eslint-disable no-new */
 new Vue({

@@ -4,6 +4,12 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 //权限管理--------------------------
+//欢迎
+const Welcome = (resolve)=>{
+    import('components/limitMGT/welcome').then((module)=>{
+        resolve(module)
+    })
+}
 //登录
 const Login = (resolve)=>{
     import('components/limitMGT/login').then((module)=>{
@@ -185,6 +191,10 @@ const NoWeb = (resolve) =>{
 export default new Router({
     routes: [
         {
+            path: '/welcome',
+            component: Welcome
+        },
+        {
             path: '/login',
             component: Login
         },
@@ -232,7 +242,7 @@ export default new Router({
         },
         {
             path: '/',
-            redirect:'/login'
+            redirect:'/welcome'
         }
     ]
 })
