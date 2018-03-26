@@ -7,12 +7,6 @@
                     <mt-button @click="myPopHide" size='small' style="width:70px;" type="primary" plain>取消</mt-button>
                     <span class="title">{{popTitle}}</span>
                     <mt-button @click="getPopValue" size='small' style="width:70px;" type="primary">确定</mt-button>
-                    <!-- <span class="botton" @click="myPopHide">
-                        取消
-                    </span> -->
-                    <!-- <span class="botton" @click="getPopValue">
-                        确定
-                    </span> -->
                 </div>
                 <slot></slot>
             </div>
@@ -58,10 +52,6 @@ export default{
 </script>
 
 <style lang="stylus" scoped>
-.slide-up-enter,.slide-up-leave-to
-    transform:translate3d(0,100%,0)
-.slide-up-enter-active,.slide-up-leave-active
-    transition: all 0.3s
 .bg-container
     position:fixed
     top:0

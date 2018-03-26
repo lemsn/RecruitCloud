@@ -7,6 +7,10 @@
 .full
     width:100%
     height:100%
+.ellipsis
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 .input-rtl .mint-cell-value input
     text-align:right
     direction:rtl
@@ -27,14 +31,29 @@
     display:flex!important
     flex-direction:column
     justify-content:center
+.flex-column-between
+    display:flex!important
+    flex-direction:column
+    justify-content:space-between
+
 $blue = #29a1f7
 $gray = #f9f9f9
 
 
+// 动画
+.slide-up-enter,.slide-up-leave-to
+    transform:translate3d(0,100%,0)
+.slide-up-enter-active,.slide-up-leave-active
+    transition: all 0.3s
+
+.slide-left-enter,.slide-left-leave-to
+    transform:translate3d(-100%,0,0)
+.slide-left-enter-active,.slide-left-leave-active
+    transition: all 0.3s
 
 
 
-// ----------------
+// --徐保林复制--------------
 .border-bottom,
 .mint-navbar{
     border-bottom: 1px solid #e9eef5;

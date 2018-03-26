@@ -9,10 +9,20 @@ const debug = process.env.NODE_ENV !== 'production';
 
 Vue.use(Vuex)
 
-const state = {}
-const mutations = {}
+const state = {
+    menuState:true
+}
+const mutations = {
+    close(state,menuState){
+        this.menuState = menuState
+    }
+}
 const actions = {}
-const getters = {}
+const getters = {
+    menuState: state =>{
+        return this.menuState
+    }
+}
 
 export default new Vuex.Store({
     actions,
