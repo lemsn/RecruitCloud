@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <keep-alive>
-      <router-view/>
+      <transition name="slide-move">
+        <router-view/>
+      </transition>
     </keep-alive>
     <keep-alive>
       <MyMenu></MyMenu>
@@ -34,18 +36,23 @@ export default {
   bottom:0
   left:0
   right:0
+  background:#fff
 .container2
   position:fixed
-  top:40px
+  padding-top:40px
+  top:0
   bottom:0
   left:0
   right:0
+  background:#fff
 .container3
   position:fixed
-  top:91px
+  padding-top:91px
+  top:0
   bottom:0
   left:0
   right:0
+  background:#fff
 .mint-cell-text
   color: #232b38
 .mint-cell:after

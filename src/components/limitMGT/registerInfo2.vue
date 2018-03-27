@@ -24,8 +24,9 @@
             </mt-field>
         </MyLine>
 
-        <MyLine>
-            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
+        <p class="error">{{errorShow}}</p>
+        <MyLine class="line-sp">
+            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">下一步</mt-button>
         </MyLine>
         <!-- 下边弹窗 -->
         <MyPop ref="mypop" :popTitle="popTitle" @getPopValue="getPopValue">
@@ -51,6 +52,8 @@ import { Toast } from 'mint-ui';
 export default{
     data(){
         return{
+            errorShow:'',
+            cantSend:false,
             avatar:require('../../assets/default-man.png'),
             actions:[
                 {
@@ -100,7 +103,7 @@ export default{
                 return this.citySelect
             }
         },
-        canNext(){
+        cantNext(){
             return false
         }
     },

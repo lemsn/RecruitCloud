@@ -13,7 +13,7 @@
         </MyLine>
 
         <MyLine>
-            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
+            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">下一步</mt-button>
         </MyLine>
     </div>
 </template>
@@ -26,13 +26,13 @@ import MyLine from 'components/base/myline'
 export default{
     data(){
         return{
-            canSend:false,
+            cantSend:false,
             sendDis:'发送验证码',
             time:10
         }
     },
     computed:{
-        canNext(){
+        cantNext(){
             return false
         }
 
@@ -42,7 +42,7 @@ export default{
             this.$router.push('login')
         },
         sendCode(){
-            this.canSend = true
+            this.cantSend = true
             this.sendDis = this.time + 's'
             this._countTime()
         },
@@ -53,7 +53,7 @@ export default{
                 if (this.time === 0) {
                     clearInterval(timer)
                     this.sendDis = '重新发送'
-                    this.canSend = false
+                    this.cantSend = false
                     this.time = 10
                 };
             },1000)

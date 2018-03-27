@@ -6,21 +6,22 @@
             </div>
         </mt-header>
         <MyLine>
-            <el-input class="my-input" placeholder="请输入手机号"></el-input>
+            <el-input class="my-input" v-model="telNumber" placeholder="请输入手机号"></el-input>
         </MyLine>
         <MyLine class="my-input">
             <el-row type="flex" justify="space-between">
                 <el-col :span="15">
-                    <el-input placeholder="请输入手机验证码"></el-input>
+                    <el-input v-model="verification" placeholder="请输入手机验证码"></el-input>
                 </el-col>
                 <el-col :span="8" :offset="1">
-                    <mt-button @click="sendCode" class="my-button w100 mgtop0 font14" :disabled="canSend" type="primary">{{sendDis}}</mt-button>
+                    <mt-button @click="sendCode" class="my-button w100 mgtop0 font14" :disabled="cantSend" type="primary">{{sendDis}}</mt-button>
                 </el-col>
             </el-row>
         </MyLine>
 
-        <MyLine>
-            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
+        <p class="error">{{errorShow}}</p>
+        <MyLine class="line-sp">
+            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">下一步</mt-button>
         </MyLine>
     </div>
 </template>
@@ -33,14 +34,17 @@ import MyLine from 'components/base/myline'
 export default{
     data(){
         return{
-            canSend:false,
+            cantSend:false,
             sendDis:'发送验证码',
-            time:10
+            time:10,
+            errorShow:'',
+            telNumber:'',
+            verification:''
         }
     },
     computed:{
-        canNext(){
-            return false
+        cantNext(){
+            return this.telNumber&&this.verification ? false : true
         }
 
     },
@@ -49,7 +53,7 @@ export default{
             this.$router.push('setNewPW')
         },
         sendCode(){
-            this.canSend = true
+            this.cantSend = true
             this.sendDis = this.time + 's'
             this._countTime()
         },
@@ -60,7 +64,7 @@ export default{
                 if (this.time === 0) {
                     clearInterval(timer)
                     this.sendDis = '重新发送'
-                    this.canSend = false
+                    this.cantSend = false
                     this.time = 10
                 };
             },1000)

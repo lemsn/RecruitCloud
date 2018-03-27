@@ -48,9 +48,9 @@
 <script>
 import MyMenuIcon from 'components/myMenu/myMenuIcon'
 import MyLine from 'components/base/myline'
-import Position from 'components/base/position'
-import Industry from 'components/base/industry'
-import Condition from 'components/base/condition'
+import Position from 'components/searchAll/position'
+import Industry from 'components/searchAll/industry'
+import Condition from 'components/searchAll/condition'
 
 export default{
     data(){

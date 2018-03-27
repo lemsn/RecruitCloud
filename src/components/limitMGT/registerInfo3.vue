@@ -21,8 +21,9 @@
             <mt-field label="企业邮箱" placeholder="请输入企业邮箱"></mt-field>
         </MyLine>
 
-        <MyLine>
-            <mt-button @click="next" class="my-button w100" :disabled="canNext" type="primary">下一步</mt-button>
+        <p class="error">{{errorShow}}</p>
+        <MyLine class="line-sp">
+            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">下一步</mt-button>
         </MyLine>
 
         <MyPop ref="mypop" :popTitle="popTitle" @getPopValue="getPopValue">
@@ -40,6 +41,8 @@ import MyPop from 'components/base/myPop'
 export default{
     data(){
         return{
+            errorShow:'',
+            cantSend:false,
             num:1,
             tel:'',
             popTitle:'',
@@ -79,7 +82,7 @@ export default{
                 return this.citySelect
             }
         },
-        canNext(){
+        cantNext(){
             return false
         }
     },
