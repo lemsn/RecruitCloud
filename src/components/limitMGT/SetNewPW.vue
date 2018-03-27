@@ -20,8 +20,8 @@
 
 <script>
 import Header from 'components/header/header'
-import Back from 'base/back'
-import MyLine from 'base/myline'
+import Back from 'components/base/back'
+import MyLine from 'components/base/myline'
 
 export default{
     data(){

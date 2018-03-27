@@ -10,17 +10,20 @@ const debug = process.env.NODE_ENV !== 'production';
 Vue.use(Vuex)
 
 const state = {
-    menuState:true
+    menuState:false
 }
 const mutations = {
     close(state,menuState){
-        this.menuState = menuState
+        state.menuState = menuState
+    },
+    open(state,menuState){
+        state.menuState = menuState
     }
 }
 const actions = {}
 const getters = {
     menuState: state =>{
-        return this.menuState
+        return state.menuState
     }
 }
 

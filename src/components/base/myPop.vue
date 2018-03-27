@@ -1,29 +1,29 @@
 <template>
-    <div class="mypop">
-        <div class="bg-container" v-show="bgShow" @click="myPopHide"></div>
-        <transition name="slide-up">
-            <div class="content-container" v-show="show">
+    <mt-popup v-model="popupShow" :position="position" class="w100">
+            <div class="content-container">
                 <div class="button-line flex-row-between">
-                    <mt-button @click="myPopHide" size='small' style="width:70px;" type="primary" plain>取消</mt-button>
+                    <mt-button size='small' style="width:70px;" type="primary" plain @click="_hide">取消</mt-button>
                     <span class="title">{{popTitle}}</span>
                     <mt-button @click="getPopValue" size='small' style="width:70px;" type="primary">确定</mt-button>
                 </div>
-                <slot></slot>
             </div>
-        </transition>
-    </div>
+            <slot></slot>
+    </mt-popup>
 </template>
 
 <script>
 export default{
     data(){
         return{
-            show:false,
-            bgShow:false,
+            popupShow:false,
             popValue:'没有值'
         }
     },
     props:{
+        position:{
+            type:String,
+            default:"bottom"
+        },
         popTitle:{
             type:String,
             default:'默认标题'
@@ -35,17 +35,10 @@ export default{
             this._hide()
         },
         myPopShow(){
-            this.show = true
-            this.bgShow = true
-        },
-        myPopHide(){
-            this._hide()
+            this.popupShow = true
         },
         _hide(){
-            this.show = false
-            setTimeout(()=>{
-                this.bgShow = false
-            },150)
+            this.popupShow = false
         }
     }
 }
@@ -62,13 +55,8 @@ export default{
     opacity:0.5
     z-index:9000
 .content-container
-    position:fixed
-    height:292px
-    bottom:0
-    left:0
-    right:0
+    width:100%
     background:#fff
-    z-index:9500
 .button-line
     padding:15px
     font-size:0

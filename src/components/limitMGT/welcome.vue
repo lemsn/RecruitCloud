@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container1">
         <div class="welcome-top">
             <!-- 这是欢迎页面 -->
         </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import MyLine from 'base/myline'
+import MyLine from 'components/base/myline'
 export default {
 	methods:{
 

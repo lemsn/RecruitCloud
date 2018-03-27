@@ -43,9 +43,9 @@
 
 <script>
 import Header from 'components/header/header'
-import Back from 'base/back'
-import MyLine from 'base/myline'
-import MyPop from 'base/myPop'
+import Back from 'components/base/back'
+import MyLine from 'components/base/myline'
+import MyPop from 'components/base/myPop'
 import { Toast } from 'mint-ui';
 
 export default{
@@ -169,7 +169,7 @@ export default{
 </script>
 
 <style lang="stylus">
-@import '~assets/base.styl'
+@import '~base/base.styl'
 
 .avatar-container
     height:80px

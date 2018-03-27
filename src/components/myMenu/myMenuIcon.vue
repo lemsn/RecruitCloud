@@ -14,11 +14,11 @@ export default{
     },
     methods:{
         _open(){
-            this.close(false)
+            this.open(true)
         },
-        ...mapMutations([
-            'close'
-        ])
+        ...mapMutations({
+            open:'open'
+        })
     }
 }
 </script>
