@@ -15,11 +15,11 @@
                 <img class="avatar" :src="avatar">
                 <i class="mint-cell-allow-right"></i>
             </mt-field>
-            <mt-field label="真实姓名" placeholder="请输入您的真实姓名"></mt-field>
+            <mt-field label="真实姓名" placeholder="请输入您的真实姓名" v-model="trueName"></mt-field>
             <mt-field label="性别" @click.native="openMyPopSex" readonly placeholder="请选择性别" v-model="sex">
                 <i class="mint-cell-allow-right"></i>
             </mt-field>
-            <mt-field label="所在地区" @click.native="openMyPopCity" readonly placeholder="请选择所在地区" v-model="city">
+            <mt-field label="所在地区" @click.native="openMyPopCity" readonly placeholder="请选择所在地区" v-model="area">
                 <i class="mint-cell-allow-right"></i>
             </mt-field>
         </MyLine>
@@ -30,7 +30,7 @@
         </MyLine>
         <!-- 下边弹窗 -->
         <MyPop ref="mypop" :popTitle="popTitle" @getPopValue="getPopValue">
-            <mt-picker :slots="pickerSlot" @change="onValuesChange"></mt-picker>
+            <mt-picker ref="mypicker" :slots="pickerSlot" @change="onValuesChange"></mt-picker>
         </MyPop>
 
         <mt-actionsheet
@@ -48,13 +48,25 @@ import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
 import MyPop from 'components/base/myPop'
 import { Toast } from 'mint-ui';
+import { defaultAvatar, provinceFormat, cityFormat} from 'components/base/defaultData'
+import storage from 'good-storage'
+import Regex from 'base/regex'
 
 export default{
     data(){
         return{
+            accountId:'',
+            trueName:'',
+            sex:'',
+            sexIndex:'',//需要post的性
+            prov:'',//需要post的省
+            city:'',//需要post的市
+            area:'',//组件传出的数据(渲染到input)
+            provinceSelect:'',//选中的省index
+            cityArr:'',//对应的城市列表
             errorShow:'',
             cantSend:false,
-            avatar:require('../../assets/default-man.png'),
+            avatar:'http://www.qq745.com/uploads/allimg/150325/011111C01-35.jpg',
             actions:[
                 {
                     name:'选择照片',
@@ -70,25 +82,23 @@ export default{
             popType:'sex',
             popValue:'空',
             pickerValue:'picker组件的当前值',
-            sex:'',
             sexSelect:[
                 {
                     values: ['男', '女'],
                     className: 'slot1'
                 }
             ],
-            city:'',
             citySelect:[
                 {
                     flex: 1,
-                    values: ['上海', '北京'],
+                    values: provinceFormat,
                     className: 'slot1',
                 }, {
                     divider: true,
                     content: '-',
                 }, {
                     flex: 1,
-                    values: ['一个区', '没有联动'],
+                    values: this.cityArr,
                     className: 'slot2'
                 }
             ],
@@ -104,20 +114,57 @@ export default{
             }
         },
         cantNext(){
-            return false
+            return this.trueName&&this.sexIndex&&this.prov&&this.city&&this.avatar ? false : true
         }
     },
     methods:{
-        onValuesChange(picker, values){
+        next(){
+            if (!Regex.nameRegExp(this.trueName)) {
+                this.errorShow = '姓名为2-4位中文'
+                return
+            }
+            this.$ajax({
+                method:'post',
+                url:'toAddUserBaseInfo',
+                params:{
+                    accountId:this.accountId,
+                    uname:this.trueName,
+                    gender:this.sexIndex,
+                    prov:this.prov,
+                    city:this.city,
+                    imageUrl:this.avatar
+                }
+            }).then((res)=>{
+                if (res.data.code === 200) {
+                    this.errorShow = ''
+                    console.log('下一步',res.data.data);
+                    this.$router.push('registerInfo3')
+                }else{
+                    this.errorShow = '状态码不为200'
+                }
+            }).catch(()=>{
+                this.errorShow = '发送失败(地区应该发送index值)'
+            })
+        },
+        onValuesChange(picker, values){ //picker改变值时触发
             if (this.popType === 'sex') {
                 this.pickerValue = values[0]
+                if (values[0] === '男') {
+                    this.sexIndex = 1
+                }else{
+                    this.sexIndex = 2
+                }
             }
             else if(this.popType === 'city'){
+                this.provinceSelect = provinceFormat.findIndex((item)=>{
+                    return item === values[0]
+                })
+                // console.log(cityFormat[this.provinceSelect])
+                this.$refs.mypicker.setSlotValues(1, cityFormat[this.provinceSelect])
+                this.prov = values[0]
+                this.city = values[1]
                 this.pickerValue = values[0]+' '+values[1]
             }
-        },
-        next(){
-            this.$router.push('registerInfo3')
         },
         openMyPopSex(){
             this.popTitle = '性别'
@@ -130,19 +177,19 @@ export default{
             this.$refs.mypop.myPopShow()
         },
         getPopValue(){
-            console.log('设定值')
+            console.log(this.pickerValue)
             this.popValue = this.pickerValue.slice()
             if (this.popType === 'sex') {
                 this.sex = this.popValue
             }
             else if(this.popType === 'city'){
-                this.city = this.popValue
+                this.area = this.popValue
             }
         },
         sheetOpen(){
             this.sheetShow = true
         },
-        judge(){
+        judge(){ //一个判断是否样式的 没功能作用
             return this.$router.indexOf('3')>-1
         },
         setAvatar(e){
@@ -161,6 +208,9 @@ export default{
             }
         }
 
+    },
+    created(){
+        this.accountId = storage.get('user' ,'')
     },
     components:{
         Header,

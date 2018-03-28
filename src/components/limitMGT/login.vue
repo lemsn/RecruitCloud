@@ -55,14 +55,26 @@ export default {
                 if(res.data.code === 200){
                     storage.set('user', this.telNumber)
                     this.errorShow = ''
-                    // console.log(res.data.data);
-                    this.$router.push('/searchAll')
+                    console.log(res.data.data);
+
+                    if (res.data.data.accountStatus === 0) {
+                        console.log('accountStatus === 0 跳到填写个人信息')
+                        this.$router.push('/registerInfo2')
+                    }else if (res.data.data.accountStatus === 1) {
+                        console.log('accountStatus === 1 跳到填写公司信息')
+                        this.$router.push('/registerInfo3')
+                    }else{
+                        console.log('accountStatus === '+res.data.data.accountStatus)
+                    }
+
+
+                    // 否的跳到searchAll
+                    // this.$router.push('/searchAll')
                 }else{
                     this.errorShow = '账号或密码错误'
-                    console.log('失败')
                 }
             }).catch((err)=>{
-                console.log('reject')
+                this.errorShow = '发送失败'
             })
         }
 	},

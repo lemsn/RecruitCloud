@@ -24,7 +24,7 @@
                     <el-input v-model="verificationImg" placeholder="请输入图形验证码"></el-input>
                 </el-col>
                 <el-col :span="8" :offset="1">
-                    <div @click="changeImg" class="w100 phone-img" id="imgcode"></div>
+                    <div class="w100 phone-img" id="imgcode"></div>
                 </el-col>
             </el-row>
         </MyLine>
@@ -101,19 +101,20 @@ export default{
                 if (res.data.code === 200) {
                     this.errorShow = ''
                     console.log(res.data.data);
-                    this.$router.push('registerInfo2')
+                    this.$router.push('login')
                 }else{
-                    this.errorShow = '有问题'
-                    console.log('失败')
+                    this.errorShow = '状态码不为200'
                 }
             }).catch((err)=>{
-                console.log('reject')
+                this.errorShow = '发送失败'
             })
         },
-        changeImg(){
-
-        },
         sendCode(){
+            if (!Regex.telRegExp(this.telNumber)) {
+                this.errorShow = '请输入正确的手机号'
+                return
+            }
+            this.errorShow = ''
             this.cantSend = true
             this.sendDis = this.time + 's'
             this._countTime()
@@ -127,7 +128,6 @@ export default{
                 if (res.data.code === 200) {
                     console.log(res.data)
                     this.verificationTrue = res.data.data
-                    storage.set('verification' ,res.data.data)
                 }else{
                     this.errorShow = '2分钟内勿重复发送'
                 }

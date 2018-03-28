@@ -30,13 +30,16 @@
 import Header from 'components/header/header'
 import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
+import Regex from 'base/regex'
 
 export default{
     data(){
         return{
+            telNumber:'',
+            verification:'',
             cantSend:false,
             sendDis:'发送验证码',
-            time:10,
+            time:120,
             errorShow:'',
             telNumber:'',
             verification:''
@@ -50,12 +53,55 @@ export default{
     },
     methods:{
         next(){
-            this.$router.push('setNewPW')
+            if (!Regex.telRegExp(this.telNumber)) {
+                this.errorShow = '请输入正确的手机号'
+                return
+            }
+
+            this.$ajax({
+                method:'post',
+                url:'login/regist',
+                params:{
+                    phone:this.telNumber,
+                    password:this.password,
+                    code:this.verification,
+                }
+            }).then((res)=>{
+                if (res.data.code === 200) {
+                    this.errorShow = ''
+                    console.log(res.data.data);
+                    this.$router.push('setNewPW')
+                }else{
+                    this.errorShow = '状态码不为200'
+                }
+            }).catch((err)=>{
+                this.errorShow = '发送失败(post url未找到)'
+            })
         },
         sendCode(){
+            if (!Regex.telRegExp(this.telNumber)) {
+                this.errorShow = '请输入正确的手机号'
+                return
+            }
+            this.errorShow = ''
             this.cantSend = true
             this.sendDis = this.time + 's'
             this._countTime()
+            this.$ajax({
+                method:'post',
+                url:'login/sendSms',
+                params:{
+                    phone:this.telNumber
+                }
+            }).then((res)=>{
+                if (res.data.code === 200) {
+                    console.log(res.data)
+                    this.verificationTrue = res.data.data
+                    storage.set('verification' ,res.data.data)
+                }else{
+                    this.errorShow = '2分钟内勿重复发送'
+                }
+            })
         },
         _countTime(){
             let timer = setInterval(()=>{
@@ -65,7 +111,7 @@ export default{
                     clearInterval(timer)
                     this.sendDis = '重新发送'
                     this.cantSend = false
-                    this.time = 10
+                    this.time = 120
                 };
             },1000)
         }

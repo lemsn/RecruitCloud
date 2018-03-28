@@ -20,6 +20,13 @@
                         </div>
                     </div>
                     <ul class="menu-list">
+                        <!-- <router-link tag="li" to="searchAll" class="active">
+                            <div>
+                                <i class="iconfont icon-juhe"></i>
+                                <p class="menu-item-name">聚合搜索</p>
+                            </div>
+                            <i class="iconfont icon-jiantouyou"></i>
+                        </router-link> -->
                         <li @click="goSearch" class="active">
                             <div>
                                 <i class="iconfont icon-juhe"></i>

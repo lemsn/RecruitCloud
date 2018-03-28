@@ -6,14 +6,15 @@
             </div>
         </mt-header>
         <MyLine>
-            <el-input class="my-input" type="password" placeholder="设置您的密码"></el-input>
+            <el-input class="my-input" type="password" placeholder="设置您的密码" v-model="newPW"></el-input>
         </MyLine>
         <MyLine>
-            <el-input class="my-input" type="password" placeholder="请再次输入"></el-input>
+            <el-input class="my-input" type="password" placeholder="请再次输入" v-model="newPWRepeat"></el-input>
         </MyLine>
 
+        <p class="error">{{errorShow}}</p>
         <MyLine>
-            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">下一步</mt-button>
+            <mt-button @click="next" class="my-button w100" :disabled="cantNext" type="primary">确定</mt-button>
         </MyLine>
     </div>
 </template>
@@ -22,41 +23,53 @@
 import Header from 'components/header/header'
 import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
+import Regex from 'base/regex'
+import { Toast } from 'mint-ui';
 
 export default{
     data(){
         return{
-            cantSend:false,
-            sendDis:'发送验证码',
-            time:10
+            newPW:'',
+            newPWRepeat:'',
+            errorShow:''
         }
     },
     computed:{
         cantNext(){
-            return false
+            return this.newPW&&this.newPWRepeat ? false : true
         }
 
     },
     methods:{
         next(){
-            this.$router.push('login')
-        },
-        sendCode(){
-            this.cantSend = true
-            this.sendDis = this.time + 's'
-            this._countTime()
-        },
-        _countTime(){
-            let timer = setInterval(()=>{
-                this.time--
-                this.sendDis = this.time + 's'
-                if (this.time === 0) {
-                    clearInterval(timer)
-                    this.sendDis = '重新发送'
-                    this.cantSend = false
-                    this.time = 10
-                };
-            },1000)
+            if (!Regex.passwordRegExp(this.newPW)) {
+                this.errorShow = '密码至少6位'
+                return
+            }
+            if (this.newPW !== this.newPWRepeat) {
+                this.errorShow = '两次输入密码不一致'
+                return
+            }
+            this.$ajax({
+                method:'post',
+                url:'login/regist',
+                params:{
+                    phone:this.telNumber,
+                    password:this.password,
+                    code:this.verification,
+                }
+            }).then((res)=>{
+                if (res.data.code === 200) {
+                    this.errorShow = ''
+                    console.log(res.data.data);
+                    Toast('密码修改成功');
+                    this.$router.push('login')
+                }else{
+                    this.errorShow = '状态码不为200'
+                }
+            }).catch((err)=>{
+                this.errorShow = '发送失败(post url未找到)'
+            })
         }
     },
     components:{

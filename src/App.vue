@@ -52,7 +52,7 @@ export default {
   bottom:0
   left:0
   right:0
-  background:#fff
+// searchAll用到.container3 不能加背景色
 .mint-cell-text
   color: #232b38
 .mint-cell:after

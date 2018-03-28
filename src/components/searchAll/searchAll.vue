@@ -4,6 +4,9 @@
             <div slot="left">
                 <MyMenuIcon></MyMenuIcon>
             </div>
+            <div slot="right">
+                <i class="iconfont icon-sousuo"></i>
+            </div>
         </mt-header>
         <div class="my-nav flex-row-center">
             <div class="nav-item" :class="{active:activeItem===0}" @click="togglePosition">
@@ -20,7 +23,7 @@
             </div>
         </div>
 
-        <MyLine v-for="(e,i) in resumeData" :key="i" class="post-item flex-row-between">
+        <MyLine v-for="(e,i) in resumeData" :key="i" class="post-item flex-row-between" @click.native="goDetail">
             <div class="post-left">
                 <p class="post-name">
                     {{e.postName}}
@@ -55,6 +58,7 @@ import Condition from 'components/searchAll/condition'
 export default{
     data(){
         return{
+            searchValue:'',
             activeItem:null,
             resumeData:[
                 {
@@ -77,6 +81,9 @@ export default{
         }
     },
     methods:{
+        goDetail(){
+            this.$router.push('personalDetail')
+        },
         togglePosition(){
             this.activeItem = this.activeItem===0 ? null : 0
             this.$refs.pos.toggle()
