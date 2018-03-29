@@ -48,7 +48,7 @@ import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
 import MyPop from 'components/base/myPop'
 import { Toast } from 'mint-ui';
-import { defaultAvatar, provinceFormat, cityFormat} from 'components/base/defaultData'
+import { defaultAvatar, areaOrigin, provinceFormat, cityFormat, findCityIndex} from 'components/base/defaultData'
 import storage from 'good-storage'
 import Regex from 'base/regex'
 
@@ -59,8 +59,9 @@ export default{
             trueName:'',
             sex:'',
             sexIndex:'',//需要post的性
-            prov:'',//需要post的省
-            city:'',//需要post的市
+            provId:'',//需要post的省id
+            cityId:'',//需要post的市id
+            provCity:'',//数组[provId,cityId]
             area:'',//组件传出的数据(渲染到input)
             provinceSelect:'',//选中的省index
             cityArr:'',//对应的城市列表
@@ -114,7 +115,7 @@ export default{
             }
         },
         cantNext(){
-            return this.trueName&&this.sexIndex&&this.prov&&this.city&&this.avatar ? false : true
+            return this.trueName&&this.sexIndex&&this.area&&this.avatar ? false : true
         }
     },
     methods:{
@@ -130,14 +131,14 @@ export default{
                     accountId:this.accountId,
                     uname:this.trueName,
                     gender:this.sexIndex,
-                    prov:this.prov,
-                    city:this.city,
+                    prov:this.provId,
+                    city:this.cityId,
                     imageUrl:this.avatar
                 }
             }).then((res)=>{
                 if (res.data.code === 200) {
                     this.errorShow = ''
-                    console.log('下一步',res.data.data);
+                    console.log('下一步',res.data);
                     this.$router.push('registerInfo3')
                 }else{
                     this.errorShow = '状态码不为200'
@@ -147,24 +148,28 @@ export default{
             })
         },
         onValuesChange(picker, values){ //picker改变值时触发
-            if (this.popType === 'sex') {
-                this.pickerValue = values[0]
-                if (values[0] === '男') {
-                    this.sexIndex = 1
-                }else{
-                    this.sexIndex = 2
+            this.$nextTick(()=>{
+                if (this.popType === 'sex') {
+                    this.pickerValue = values[0]
+                    if (values[0] === '男') {
+                        this.sexIndex = 1
+                    }else{
+                        this.sexIndex = 2
+                    }
                 }
-            }
-            else if(this.popType === 'city'){
-                this.provinceSelect = provinceFormat.findIndex((item)=>{
-                    return item === values[0]
-                })
-                // console.log(cityFormat[this.provinceSelect])
-                this.$refs.mypicker.setSlotValues(1, cityFormat[this.provinceSelect])
-                this.prov = values[0]
-                this.city = values[1]
-                this.pickerValue = values[0]+' '+values[1]
-            }
+                else if(this.popType === 'city'){
+                    this.provinceSelect = provinceFormat.findIndex((item)=>{
+                        return item === values[0]
+                    })
+                    // console.log(cityFormat[this.provinceSelect])
+                    this.$refs.mypicker.setSlotValues(1, cityFormat[this.provinceSelect])
+                    this.provCity = findCityIndex(values[0],values[1])
+                    console.log(this.provCity)
+                    this.provId = this.provCity[0]
+                    this.cityId = this.provCity[1]
+                    this.pickerValue = values[0]+' '+values[1]
+                }
+            })
         },
         openMyPopSex(){
             this.popTitle = '性别'
@@ -210,6 +215,7 @@ export default{
 
     },
     created(){
+        // console.log(areaOrigin)
         this.accountId = storage.get('user' ,'')
     },
     components:{

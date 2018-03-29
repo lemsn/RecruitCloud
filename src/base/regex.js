@@ -9,9 +9,9 @@ export default{
         let reg = /.{6,}/;
         return reg.test(str) ? true : false
     },
-    //姓名 2-4位中文
+    //姓名 1-20位的中英文和空格
     nameRegExp(str){
-        let reg = /^[\u4E00-\u9FA5]{2,4}$/;
+        let reg = /^[a-zA-Z\u4e00-\u9fa5 ]{1,20}$/;
         return reg.test(str) ? true : false
     },
     //邮箱 邮箱 mp.12-34.qq.com

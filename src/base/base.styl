@@ -2,6 +2,8 @@
     width:100%;
 .mgtop0
     margin-top:0!important
+.mgbt10
+    margin-bottom:10px!important
 .font14
     font-size:14px!important
 .full
@@ -9,6 +11,8 @@
     height:100%
 .line-sp
     margin-top:-15px
+.txt-center
+    text-align:center
 .error
     color:#f36058
     width:100%
@@ -43,7 +47,7 @@
     display:flex!important
     flex-direction:column
     justify-content:space-between
-
+// mixin
 $blue = #29a1f7
 $gray = #f9f9f9
 $gray2 = #9da2ae
@@ -71,6 +75,71 @@ bor-bottom-1px()
         background:#e9eef5
         transform: scaleY(0.5)
 
+// 通用
+.bg-gray
+    background:#f9f9f9!important
+.info-title //左侧带蓝竖线的标题
+    padding:10px 10px 13px 10px!important
+    position: relative
+    font-size:16px!important
+    color:#333
+    font-weight:bold
+    bor-bottom-1px()
+    &:before
+        content: ''
+        display:block
+        position: absolute
+        left: 0px
+        bottom: 13px
+        width: 2px
+        height: 16px
+        background:$blue
+.my-nav
+    display:flex!important
+    flex-direction:row
+    justify-content:space-between
+    text-align:center
+    width:100%
+    position:fixed
+    top:40px
+    z-index:40
+    background:#fff
+    border-bottom: 1px solid #e9eef5;
+.my-tab
+    display:inline-block
+    font-size:16px
+    color:#4b545e
+    &.active
+        color:$blue
+.nav-item
+    text-align:center
+    padding: 17px 0;
+    flex:1 1 auto
+    position:relative
+    &:nth-child(n+2):before
+        content: ''
+        display:block
+        position: absolute
+        left: 0px
+        bottom: 15px
+        width: 1px
+        height: 20px
+        background:#e9eef5
+    &.active
+        border-bottom:2px solid $blue
+        .my-tab
+            color:$blue
+        .my-tab2
+            color:$blue
+        .iconfont
+            color:$blue
+.post-item
+    background:#fff
+    padding:13px 7% 13px 5%
+    position:relative
+    margin-bottom:3px
+
+
 // 动画
 .slide-up-enter,.slide-up-leave-to
     transform:translate3d(0,100%,0)
@@ -93,7 +162,7 @@ bor-bottom-1px()
     transition: all 0.3s ease
 
 .fade-enter-active, .fade-leave-active
-  transition: opacity .5s
+  transition: opacity 0.3s
 .fade-enter, .fade-leave-to
   opacity: 0
 

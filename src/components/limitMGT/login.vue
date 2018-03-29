@@ -55,7 +55,7 @@ export default {
                 if(res.data.code === 200){
                     storage.set('user', this.telNumber)
                     this.errorShow = ''
-                    console.log(res.data.data);
+                    console.log(res.data);
 
                     if (res.data.data.accountStatus === 0) {
                         console.log('accountStatus === 0 跳到填写个人信息')

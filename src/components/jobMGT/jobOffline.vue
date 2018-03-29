@@ -1,5 +1,7 @@
 <template>
-
+    <div class="jobOffline">
+        下线的岗位
+    </div>
 </template>
 
 <script>

@@ -102,6 +102,12 @@ const AddStaff = (resolve) =>{
 }
 
 //职位管理--------------------------
+//职位管理
+const JobMGT = (resolve) =>{
+    import('components/jobMGT/jobMGT').then((module)=>{
+        resolve(module)
+    })
+}
 //在线职位
 const JobOnline = (resolve) =>{
     import('components/jobMGT/jobOnline').then((module)=>{
@@ -111,6 +117,12 @@ const JobOnline = (resolve) =>{
 //下线职位
 const JobOffline = (resolve) =>{
     import('components/jobMGT/jobOffline').then((module)=>{
+        resolve(module)
+    })
+}
+//下线职位
+const JoblDetail = (resolve) =>{
+    import('components/jobMGT/jobDetail').then((module)=>{
         resolve(module)
     })
 }
@@ -227,14 +239,26 @@ export default new Router({
             component: PersonalDetail
         },
         {
-            path: '/account',
-            component: Account,
+            path: '/jobDetail',
+            component: JoblDetail
+        },
+        {
+            path: '/jobMGT',
+            component: JobMGT,
             children:[
                 {
-                    path: '/personalDetail',
-                    component: PersonalDetail
+                    path:'/jobOnline',
+                    component:JobOnline
+                },
+                {
+                    path:'/jobOffline',
+                    component:JobOffline
                 }
             ]
+        },
+        {
+            path: '/account',
+            component: Account
         },
         {
             path: '*',

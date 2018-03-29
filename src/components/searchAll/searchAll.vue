@@ -1,5 +1,5 @@
 <template>
-    <div class="searchAll container3">
+    <div class="searchAll container3 bg-gray">
         <mt-header fixed title="聚合搜索">
             <div slot="left">
                 <MyMenuIcon></MyMenuIcon>
@@ -10,15 +10,15 @@
         </mt-header>
         <div class="my-nav flex-row-center">
             <div class="nav-item" :class="{active:activeItem===0}" @click="togglePosition">
-                <p class="my-tab">工作地点</p>
+                <p class="my-tab2">工作地点</p>
                 <i class="iconfont icon-xialajiantou"></i>
             </div>
             <div class="nav-item" :class="{active:activeItem===1}" @click="toggleIndustry">
-                <p class="my-tab">全部行业</p>
+                <p class="my-tab2">全部行业</p>
                 <i class="iconfont icon-xialajiantou"></i>
             </div>
             <div class="nav-item" :class="{active:activeItem===2}" @click="toggleCondition">
-                <p class="my-tab">更多条件</p>
+                <p class="my-tab2">更多条件</p>
                 <i class="iconfont icon-xialajiantou"></i>
             </div>
         </div>
@@ -118,8 +118,6 @@ export default{
 <style lang="stylus" scoped>
 @import "~base/base.styl"
 
-.searchAll
-    background:#f9f9f9
 .my-nav
     width:100%
     position:fixed
@@ -127,16 +125,7 @@ export default{
     z-index:40
     background:#fff
     border-bottom: 1px solid #e9eef5;
-.nav-item
-    width:33%
-    text-align:center
-    padding: 17px 0;
-    &.active
-        .my-tab
-            color:$blue
-        .iconfont
-            color:$blue
-.my-tab
+.my-tab2
     display:inline-block
     font-size:14px
     color:#4b545e
@@ -145,11 +134,6 @@ export default{
         font-size:12px
         color:#cad2dc
         transform:scale(0.7)
-.post-item
-    background:#fff
-    padding:13px 7% 13px 5%
-    position:relative
-    margin-bottom:3px
 .post-name
     font-size:16px
     font-weight:bold

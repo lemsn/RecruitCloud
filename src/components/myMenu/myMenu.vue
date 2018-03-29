@@ -41,7 +41,7 @@
                             </div>
                             <i class="iconfont icon-jiantouyou"></i>
                         </li>
-                        <li>
+                        <li @click="gojobMGT">
                             <div>
                                 <i class="iconfont icon-zhiwei"></i>
                                 <p class="menu-item-name">职位管理</p>
@@ -101,6 +101,10 @@ export default{
         },
         goSearch(){
             this.$router.push('/searchAll')
+            this._close()
+        },
+        gojobMGT(){
+            this.$router.push('/jobMGT')
             this._close()
         },
         loginOut(){

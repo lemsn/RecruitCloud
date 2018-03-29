@@ -47,6 +47,7 @@ export default {
   background:#fff
 .container3
   position:fixed
+  overflow:auto
   padding-top:91px
   top:0
   bottom:0
@@ -66,5 +67,9 @@ export default {
    transform: scaleY(0.5)
 .mint-header
   font-size:16px
-
+input[readonly]
+  padding-right:20px
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
 </style>
