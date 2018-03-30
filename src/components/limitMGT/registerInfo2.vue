@@ -32,7 +32,7 @@
         <MyPop ref="mypop" :popTitle="popTitle" @getPopValue="getPopValue">
             <mt-picker ref="mypicker" :slots="pickerSlot" @change="onValuesChange"></mt-picker>
         </MyPop>
-
+        <!-- 拍照操作窗 -->
         <mt-actionsheet
             :actions="actions"
             v-model="sheetShow">
@@ -47,8 +47,8 @@ import Header from 'components/header/header'
 import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
 import MyPop from 'components/base/myPop'
-import { Toast } from 'mint-ui';
-import { defaultAvatar, areaOrigin, provinceFormat, cityFormat, findCityIndex} from 'components/base/defaultData'
+import { Toast } from 'mint-ui'
+import { defaultAvatar, provinceFormat, cityFormat, findCityIndex} from 'components/base/defaultData'
 import storage from 'good-storage'
 import Regex from 'base/regex'
 

@@ -1,5 +1,7 @@
 .w100
     width:100%;
+.h100
+    height:100%;
 .mgtop0
     margin-top:0!important
 .mgbt10
@@ -28,9 +30,35 @@
     direction:rtl
 .my-button
     line-height:40px
+    text-align:center
     height:40px
-    font-size:18px
+    font-size:17px
+    letter-spacing:1px
     margin-top:10%
+.my-button2 //小的半透明蓝按钮
+    display:inline-block
+    text-align:center
+    font-size:12px
+    height:26px
+    line-height:26px
+    border-radius:5px
+    padding:0 5px
+    border: 1px solid #26a2ff;
+    background-color: #e9f5fe!important
+    color: #26a2ff
+.my-button3 //福利按钮 无色底
+    display:inline-block
+    text-align:center
+    font-size:13px
+    border-radius:5px
+    padding:10px 15px
+    border: 1px solid #26a2ff;
+    background-color: #fff!important
+    color: #333;
+.flex
+    flex: 1 1 auto
+.flex-align-center
+    align-items:center
 .flex-row-center
     display:flex!important
     flex-direction:row
@@ -47,6 +75,11 @@
     display:flex!important
     flex-direction:column
     justify-content:space-between
+.bottom-button
+    padding:10px
+    height:auto
+    button
+        margin-top:0
 // mixin
 $blue = #29a1f7
 $gray = #f9f9f9
@@ -55,7 +88,7 @@ $orange = #fd6d4a
 
 extend-click()
     position: relative
-    &:before
+    &:after
         content: ''
         position: absolute
         top: -10px
@@ -74,8 +107,32 @@ bor-bottom-1px()
         height: 1px
         background:#e9eef5
         transform: scaleY(0.5)
-
+rightline()
+    position:relative
+    &:before
+        content: ''
+        display:block
+        position: absolute
+        right: 0px
+        top: 10px
+        width: 1px
+        height: 45px
+        background:#e9eef5
+bottomline()
+    position:relative
+    &:before
+        content: ''
+        display:block
+        position: absolute
+        right: 0px
+        bottom: -15px
+        width: 100%
+        height: 1px
+        background:#e9eef5
 // 通用
+.rightArrow
+    color:#c3cad3
+    font-weight:bold
 .bg-gray
     background:#f9f9f9!important
 .info-title //左侧带蓝竖线的标题
@@ -113,7 +170,7 @@ bor-bottom-1px()
         color:$blue
 .nav-item
     text-align:center
-    padding: 17px 0;
+    padding: 13px 0;
     flex:1 1 auto
     position:relative
     &:nth-child(n+2):before
@@ -121,7 +178,7 @@ bor-bottom-1px()
         display:block
         position: absolute
         left: 0px
-        bottom: 15px
+        top: 12px
         width: 1px
         height: 20px
         background:#e9eef5
@@ -133,12 +190,14 @@ bor-bottom-1px()
             color:$blue
         .iconfont
             color:$blue
-.post-item
+.job-item
     background:#fff
     padding:13px 7% 13px 5%
     position:relative
     margin-bottom:3px
-
+.more
+    color:$gray2
+    extend-click()
 
 // 动画
 .slide-up-enter,.slide-up-leave-to

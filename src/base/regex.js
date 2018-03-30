@@ -18,5 +18,21 @@ export default{
     emailRegExp(str){
         let reg = /[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+/;
         return reg.test(str) ? true : false
+    },
+    //日期是否存在
+    isDate(year,month,day){
+        if((month==4||month==6||month==9||month==11)&&(day>30)){
+            return false
+        }
+        if(month==2){
+            if(day>29){
+                return false
+            }
+            if((((year%100==0)&&(year%400!=0))||(year%4!=0))&&(day>28)){
+                return false
+            }
+        }
+        return true;
     }
+
 }

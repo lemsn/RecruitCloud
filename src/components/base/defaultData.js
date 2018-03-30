@@ -80,3 +80,98 @@ export function findIndustryIndex(Level1,Level2){
     })
     return tempArr
 }
+
+// 经验要求
+export const expOrigin = [{"id":0,"value":"不限"}, {"id":1,"value":"1年以下"}, {"id":2,"value":"1-3年"}, {"id":3,"value":"4-6年"}, {"id":4,"value":"7-10年"}, {"id":6,"value":"10年以上"}, {"id":7,"value":"应届毕业生"}];
+// 把经验要求格式化成arr
+export const expFormat = (()=>{
+    const expArr = []
+    expOrigin.forEach((e,i)=>{
+        expArr.push(e.value)
+    })
+    return expArr
+})()
+// 找到经验要求对应的id
+export function findExpIndex(val){
+    expOrigin.findIndex((e)=>{
+        e.value = val
+        return e.id
+    })
+    // let tempNum = 0
+    // expOrigin.forEach((e,i)=>{
+    //     if (e.value===val) {
+    //         tempNum = e.id
+    //     }
+    // })
+    // return tempNum
+}
+
+// 学历要求
+export const eduOrigin = [{"id":0,"value":"不限"}, {"id":5,"value":"专科"}, {"id":6,"value":"本科"}, {"id":7,"value":"硕士"}, {"id":8,"value":"博士"}, {"id":9,"value":"其他"}];
+// 把学历要求格式化成arr
+export const eduFormat = (()=>{
+    const eduArr = []
+    eduOrigin.forEach((e,i)=>{
+        eduArr.push(e.value)
+    })
+    return eduArr
+})()
+// 找到经验要求对应的id
+export function findEduIndex(val){
+    eduOrigin.findIndex((e)=>{
+        e.value = val
+        return e.id
+    })
+    // let tempNum = 0
+    // eduOrigin.forEach((e,i)=>{
+    //     if (e.value===val) {
+    //         tempNum = e.id
+    //     }
+    // })
+    // return tempNum
+}
+
+// 薪资范围 1k~100k
+export const salaryOrigin =(()=>{
+    const salaryArr = []
+    for (let i=0;i<100;i++){
+        salaryArr.push((i+1)+'k')
+    }
+    return salaryArr
+})()
+
+// 日期 配合正则
+export const dateOrigin = {
+    year:(()=>{
+        let tempArr = []
+        const nowYear = new Date().getFullYear()
+        for(let i=0;i<10;i++){
+            tempArr.push(i+nowYear)
+        }
+        return tempArr
+    })(),
+    month:(()=>{
+        let tempArr = []
+        for(let i=0;i<12;i++){
+            tempArr.push(i+1>9 ? i+1 : '0'+(i+1))
+        }
+        return tempArr
+    })(),
+    day:(()=>{
+        let tempArr = []
+        for(let i=0;i<31;i++){
+            tempArr.push(i+1>9 ? i+1 : '0'+(i+1))
+        }
+        return tempArr
+    })()
+}
+
+// 福利待遇
+export const welfareOrigin = [{"id":1,"value":"上市公司"}, {"id":2,"value":"免费班车"}, {"id":3,"value":"加班补贴"}, {"id":4,"value":"补充公积金"}, {"id":5,"value":"管理规范"}, {"id":6,"value":"弹性工作"}, {"id":7,"value":"公司规模大"}, {"id":8,"value":"发展空间大"}, {"id":9,"value":"扁平管理"}, {"id":10,"value":"美女多"}, {"id":11,"value":"帅哥多"}, {"id":12,"value":"不打卡"}, {"id":13,"value":"气氛自由"}, {"id":14,"value":"智能硬件"}, {"id":15,"value":"地铁周边"}, {"id":16,"value":"不加班"}, {"id":17,"value":"岗位晋升"}, {"id":18,"value":"补充养老保险"}, {"id":19,"value":"带薪病假"}, {"id":20,"value":"年终分红"}, {"id":21,"value":"外派津贴"}, {"id":22,"value":"股票期权"}, {"id":23,"value":"全勤奖"}, {"id":24,"value":"通讯津贴"}, {"id":25,"value":"专项奖金"}, {"id":26,"value":"年底双薪"}, {"id":27,"value":"带薪年假"}, {"id":28,"value":"绩效奖金"}, {"id":29,"value":"五险一金"}, {"id":30,"value":"优秀员工奖"}, {"id":32,"value":"交通津贴"}];
+// 找到福利对应的id
+export function findwelfareIndex(val){
+    eduOrigin.findIndex((e)=>{
+        e.value = val
+        return e.id
+    })
+}

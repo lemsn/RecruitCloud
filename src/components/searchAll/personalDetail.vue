@@ -60,8 +60,9 @@
 		        	<div class="state-box">
 						<p class="state state-title" :class="{active:1===1}"></i><span>中移动有限公司</span>运营经理</p>
 			        	<p class="time-small">2013.2-2018.5</p>
-			        	<p class="dic-line"><span>1、</span>负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联</p>
-			        	<p class="dic-line"><span>2、</span>负责互联网负责互联网负责互联网负责互联</p>
+			        	<p class="dic-line">1、负责互联网负责互联网负责互联网负责互联网负责互</br>
+			        	2、负责互联网负责互联网负责互联网负责互联网负责互
+			        	</p>
 		        	</div>
 	        	</div>
 	        </div>
@@ -71,8 +72,9 @@
 	        		<div class="state-box">
 						<p class="state state-title" :class="{active:1===1}"></i>中国美术学院</p>
 			        	<p class="time-small">2013.2-2018.5</p>
-			        	<p class="dic-line"><span>1、</span>负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联网负责互联</p>
-			        	<p class="dic-line"><span>2、</span>负责互联网负责互联网负责互联网负责互联</p>
+			        	<p class="dic-line">1、负责互联网负责互联网负责互联网负责互联网负责互</br>
+			        	2、负责互联网负责互联网负责互联网负责互联网负责互
+			        	</p>
 		        	</div>
 	        	</div>
 	        </div>

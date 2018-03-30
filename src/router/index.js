@@ -126,9 +126,15 @@ const JoblDetail = (resolve) =>{
         resolve(module)
     })
 }
+//编辑职位
+const JobEdit = (resolve) =>{
+    import('components/jobMGT/jobEdit').then((module)=>{
+        resolve(module)
+    })
+}
 //发布新职位
-const PublishJob = (resolve) =>{
-    import('components/jobMGT/publishJob').then((module)=>{
+const PostJob = (resolve) =>{
+    import('components/jobMGT/postJob').then((module)=>{
         resolve(module)
     })
 }
@@ -255,6 +261,14 @@ export default new Router({
                     component:JobOffline
                 }
             ]
+        },
+        {
+            path: '/editJob',
+            component: JobEdit
+        },
+        {
+            path: '/postJob',
+            component: PostJob
         },
         {
             path: '/account',

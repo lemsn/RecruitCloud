@@ -8,7 +8,7 @@
                 <i class="iconfont icon-sousuo"></i>
             </div>
         </mt-header>
-        <div class="my-nav flex-row-center">
+        <div class="my-nav flex-row-between">
             <div class="nav-item" :class="{active:activeItem===0}" @click="togglePosition">
                 <p class="my-tab2">工作地点</p>
                 <i class="iconfont icon-xialajiantou"></i>
@@ -23,16 +23,16 @@
             </div>
         </div>
 
-        <MyLine v-for="(e,i) in resumeData" :key="i" class="post-item flex-row-between" @click.native="goDetail">
-            <div class="post-left">
-                <p class="post-name">
-                    {{e.postName}}
+        <MyLine v-for="(e,i) in resumeData" :key="i" class="job-item flex-row-between" @click.native="goDetail">
+            <div class="job-left">
+                <p class="job-name">
+                    {{e.jobName}}
                 </p>
                 <p class="disc">
                     {{e.area}} | {{e.exp}} | {{e.edu}}
                 </p>
             </div>
-            <div class="post-right">
+            <div class="job-right">
                 <p class="salary">
                     {{e.salary}}
                 </p>
@@ -62,16 +62,16 @@ export default{
             activeItem:null,
             resumeData:[
                 {
-                    postName:'岗位名字',
-                    postTime:'11:37',
+                    jobName:'岗位名字',
+                    jobTime:'11:37',
                     area:'上海 - 松江区',
                     edu:'学历',
                     exp:'1-3年',
                     salary:'10-15k'
                 },
                 {
-                    postName:'岗位名字2',
-                    postTime:'16:37',
+                    jobName:'岗位名字2',
+                    jobTime:'16:37',
                     area:'上海 - 浦东区',
                     edu:'学历2',
                     exp:'1-2年',
@@ -134,7 +134,7 @@ export default{
         font-size:12px
         color:#cad2dc
         transform:scale(0.7)
-.post-name
+.job-name
     font-size:16px
     font-weight:bold
     margin-bottom:10px
