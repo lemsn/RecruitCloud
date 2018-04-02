@@ -142,6 +142,7 @@ import Back from 'components/base/back'
 	export default {
 		data() {
 			return {
+				power:true,//是否有权限看联系方式
 				messageBoxType:2,
 				messageTxt:'支付验证码',
 				errorShow:'',

@@ -74,9 +74,15 @@ const ModifyPW = (resolve) =>{
 }
 
 // 聚合搜索--------------------------
-// 搜索全部
+// 聚合的主页
 const SearchAll = (resolve) =>{
     import('components/searchAll/searchAll').then((module)=>{
+        resolve(module)
+    })
+}
+// 搜索页面
+const SearchInput = (resolve) =>{
+    import('components/searchAll/searchInput').then((module)=>{
         resolve(module)
     })
 }
@@ -135,18 +141,6 @@ const JobEdit = (resolve) =>{
 //发布新职位
 const PostJob = (resolve) =>{
     import('components/jobMGT/postJob').then((module)=>{
-        resolve(module)
-    })
-}
-//岗位职责
-const JobContent = (resolve) =>{
-    import('components/jobMGT/jobContent').then((module)=>{
-        resolve(module)
-    })
-}
-//岗位职责
-const CompanyLabel = (resolve) =>{
-    import('components/jobMGT/companyLabel').then((module)=>{
         resolve(module)
     })
 }
@@ -241,6 +235,10 @@ export default new Router({
             component: SearchAll,
         },
         {
+            path: '/searchInput',
+            component: SearchInput,
+        },
+        {
             path: '/personalDetail',
             component: PersonalDetail
         },
@@ -251,6 +249,7 @@ export default new Router({
         {
             path: '/jobMGT',
             component: JobMGT,
+            redirect:'/jobOnline',
             children:[
                 {
                     path:'/jobOnline',

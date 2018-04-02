@@ -31,7 +31,8 @@ export default{
 </script>
 
 <style scoped lang="stylus">
-@import '~base/base.styl'
+@import "~base/base.styl"
+
 .header
     position:fixed
     z-index:10

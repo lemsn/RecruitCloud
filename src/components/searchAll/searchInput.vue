@@ -1,11 +1,14 @@
 <template>
     <div class="searchAll container3 bg-gray">
-        <mt-header fixed title="聚合搜索">
+        <mt-header fixed>
             <div slot="left">
                 <MyMenuIcon></MyMenuIcon>
             </div>
             <div slot="right">
-                <i class="iconfont icon-sousuo" @click="goSearchInput"></i>
+                <div class="search-box" ref="searchBox">
+                    <i class="iconfont icon-sousuo"></i>
+                    <mt-field placeholder="搜索" type="text" v-model="searchValue"></mt-field>
+                </div>
             </div>
         </mt-header>
         <div class="my-nav flex-row-between">
@@ -23,7 +26,7 @@
             </div>
         </div>
 
-        <div class="search-content">
+        <div class="search-content" infinite-scroll-distance="100" v-infinite-scroll="getDate">
             <MyLine v-for="(e,i) in resumeData" :key="i" class="job-item flex-row-between" @click.native="goDetail">
                 <div class="job-left">
                     <p class="job-name">
@@ -52,6 +55,7 @@
 
 <script>
 import MyMenuIcon from 'components/myMenu/myMenuIcon'
+import SearchIcon from 'components/base/searchIcon'
 import MyLine from 'components/base/myline'
 import Position from 'components/searchAll/position'
 import Industry from 'components/searchAll/industry'
@@ -60,6 +64,7 @@ import Condition from 'components/searchAll/condition'
 export default{
     data(){
         return{
+            searchValue:'',
             activeItem:null,
             resumeData:[
                 {
@@ -69,19 +74,14 @@ export default{
                     edu:'学历',
                     exp:'1-3年',
                     salary:'10-15k'
-                },
-                {
-                    jobName:'岗位名字2',
-                    jobTime:'16:37',
-                    area:'上海 - 浦东区',
-                    edu:'学历2',
-                    exp:'1-2年',
-                    salary:'15-25k'
                 }
             ]
         }
     },
     methods:{
+        getDate(){
+            console.log('加载数据')
+        },
         goDetail(){
             this.$router.push('personalDetail')
         },
@@ -103,8 +103,12 @@ export default{
             this.$refs.industry._hide()
             this.$refs.condition.toggle()
         },
-        goSearchInput(){
-            this.$router.push('searchInput')
+        _search(){
+            this.$refs.searchBox.onkeydown=function(){
+                if (event.keyCode == 13){
+                  alert('回车搜索');
+                }
+            }
         }
     },
     components:{
@@ -112,10 +116,11 @@ export default{
         MyLine,
         Position,
         Industry,
-        Condition
+        Condition,
+        SearchIcon
     },
     mounted(){
-
+        this._search()
     }
 }
 </script>
@@ -123,6 +128,13 @@ export default{
 <style lang="stylus" scoped>
 @import "~base/base.styl"
 
+.icon-sousuo
+    position:fixed
+    z-index:1
+    color:#ddd
+    left:44px
+    top:14px
+    font-size:14px
 .my-nav
     width:100%
     position:fixed

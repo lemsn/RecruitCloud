@@ -2,37 +2,46 @@
     <div class="container2">
         <mt-header fixed title="发布职位">
             <div slot="left">
-                <Back></Back>
+                <MyMenuIcon></MyMenuIcon>
             </div>
-            <div slot="right" @click="post">
-                发布
+            <div slot="right" @click="goPrev">
+                取消
             </div>
         </mt-header>
-        <MyLine :type="2">
-            <mt-field label="职位名称" placeholder="请输入职位名称" v-model="jobName"></mt-field>
-            <mt-field label="月薪范围" @click.native="openMyPopSalary" readonly placeholder="请选择月薪范围" v-model="salary">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
-            <mt-field label="办公地区" @click.native="openMyPopCity" readonly placeholder="请选择所在地区" v-model="area">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
-            <mt-field label="详细地址" placeholder="请输入详细地址" v-model="address"></mt-field>
-            <mt-field label="经验要求" @click.native="openMyPopExp" readonly placeholder="请选择所需经验" v-model="exp">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
-            <mt-field label="学历要求" @click.native="openMyPopEdu" readonly placeholder="请选择所需学历" v-model="edu">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
-            <mt-field label="有效期" @click.native="openMyPopTime" readonly placeholder="请选择截止日期" v-model="endTime">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
-            <mt-field label="福利待遇" @click.native="openWelfare" readonly placeholder="请选择福利待遇" :value="welfareActived">
-                <i class="mint-cell-allow-right"></i>
-            </mt-field>
+        <div class="job-container flex-column-center">
+            <MyLine class="job-content" :type="2">
+                <mt-field label="职位名称" placeholder="请输入职位名称" v-model="jobName"></mt-field>
+                <mt-field label="月薪范围" @click.native="openMyPopSalary" readonly placeholder="请选择月薪范围" v-model="salary">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="办公地区" @click.native="openMyPopCity" readonly placeholder="请选择所在地区" v-model="area">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="详细地址" placeholder="请输入详细地址" v-model="address"></mt-field>
+                <mt-field label="经验要求" @click.native="openMyPopExp" readonly placeholder="请选择所需经验" v-model="exp">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="学历要求" @click.native="openMyPopEdu" readonly placeholder="请选择所需学历" v-model="edu">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="有效期" @click.native="openMyPopTime" readonly placeholder="请选择截止日期" v-model="endTime">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="福利待遇" @click.native="openWelfare" readonly placeholder="请选择福利待遇" :value="welfareActived">
+                    <i class="mint-cell-allow-right"></i>
+                </mt-field>
+                <mt-field label="岗位职责" type="textarea" rows="10" class="align-start" placeholder="请填写岗位职责" v-model="jobDuty">
+                    <!-- <i class="mint-cell-allow-right"></i> -->
+                </mt-field>
 
-        </MyLine>
+            </MyLine>
+            <div class="bottom-button">
+                <mt-button @click="postJob" class="my-button w100" type="primary">发布</mt-button>
+            </div>
+        </div>
 
-        <p class="error">{{errorShow}}</p>
+
+        <!-- <p class="error">{{errorShow}}</p> -->
         <!-- 下边弹窗 -->
         <MyPop ref="mypop" :popTitle="popTitle" @getPopValue="getPopValue">
             <mt-picker ref="mypicker" :slots="pickerSlot" @change="onValuesChange"></mt-picker>
@@ -42,7 +51,7 @@
             v-model="welfarePop"
             position="bottom">
             <ul class="welfare-container flex-row-between">
-                <li class="my-button3" :class="{active:e.id}" @click="changeWelfare(e,i)" v-for="(e,i) in welfareArr">{{e.value}}</li>
+                <li class="my-button3" :class="{active:JSON.stringify(welfareActivedArr).indexOf(JSON.stringify(e))!=-1}" @click="changeWelfare(e,i)" v-for="(e,i) in welfareArr">{{e.value}}</li>
                 <li class="empty"></li>
                 <li class="empty"></li>
                 <li class="empty"></li>
@@ -53,7 +62,8 @@
 
 <script>
 import Header from 'components/header/header'
-import Back from 'components/base/back'
+import MyMenuIcon from 'components/myMenu/myMenuIcon'
+// import Back from 'components/base/back'
 import MyLine from 'components/base/myline'
 import MyPop from 'components/base/myPop'
 import { Toast } from 'mint-ui'
@@ -86,6 +96,7 @@ export default{
             welfareActivedArr:[],//激活福利对象
             // 这里需要一个福利index数组 展示的i indexOf大于0 加active
             welfareArr:welfareOrigin,//所有福利
+            jobDuty:'',//需要post的岗位职责
 
             address:'',
             popTitle:'',
@@ -175,30 +186,62 @@ export default{
         welfareActived(){ //激活的福利名字
             let _arr = []
             for(let i in this.welfareActivedArr){
-                // console.log(item)
                 _arr.push(this.welfareActivedArr[i].value)
             }
-            return _arr.join(' ')
+            return _arr.join('，')
         }
     },
     methods:{
-        post(){
-            console.log('发布')
-            // 点击发布
+        postJob(){
+            if(this.jobName&&this.salary&&this.area&&this.exp&&this.edu&&this.endTime&&this.welfareActived&&this.jobDuty){
+                console.log('发布')
+                this.$ajax({
+                    method:'post',
+                    url:'',
+                    params:{
+
+                    }
+                }).then((res)=>{
+                    if (res.data.code === 200) {
+                        this.errorShow = ''
+                        console.log('下一步');
+                        this.$router.push('/')
+                    }else if(res.data.code === 401){
+                        this.$router.push('login')
+                    }else{
+                        this.errorShow = '状态码为'+res.data.code
+                    }
+                }).catch(()=>{
+                    this.errorShow = '发布失败'
+                })
+            }else{
+                Toast('有未填项')
+            }
+        },
+        goPrev(){
+            this.$router.back()
         },
         changeWelfare(e,i){
-            // console.log(e,this._isWelfare(e))
             if (this._isWelfare(e) < 0) {
                 this.welfareActivedArr.push(e)
             }else{
-                let _welfare = this.welfareActivedArr.indexOf(e.id)
+                let _welfare = this._findwelfareIndex(e)
                 this.welfareActivedArr.splice(_welfare,1)
             }
         },
         _isWelfare(e){
             return this.welfareActivedArr.findIndex((item)=>{
-                return item.id == e.id
+                return item == e
             })
+        },
+        _findwelfareIndex(e){
+            let _index = null
+            this.welfareActivedArr.forEach((item,index)=>{
+                if(item === e){
+                    _index = index
+                }
+            })
+            return _index
         },
         openWelfare(){
             this.welfarePop = true
@@ -299,17 +342,21 @@ export default{
     },
     components:{
         Header,
-        Back,
         MyLine,
-        MyPop
+        MyPop,
+        MyMenuIcon
     }
 
 }
 </script>
 
-<style lang="stylus">
-@import '~base/base.styl'
+<style lang="stylus" scoped>
+@import "~base/base.styl"
 
+.job-container
+    height:100%
+.job-content
+    overflow:auto
 .welfare-container
     font-size:0
     flex-wrap:wrap
@@ -321,6 +368,7 @@ export default{
     margin:1%
     width:30%
     &.active
+        border: 1px solid #26a2ff;
         background:#e9f5fe!important
         color:#26a2ff
 .empty

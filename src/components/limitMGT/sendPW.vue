@@ -71,8 +71,10 @@ export default{
                     this.errorShow = ''
                     console.log(res.data.data);
                     this.$router.push('setNewPW')
+                }else if(res.data.code === 401){
+                    this.$router.push('login')
                 }else{
-                    this.errorShow = '状态码不为200'
+                    this.errorShow = '状态码为'+res.data.code
                 }
             }).catch((err)=>{
                 this.errorShow = '发送失败(post url未找到)'

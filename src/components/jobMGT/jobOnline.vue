@@ -116,7 +116,6 @@ import MyLine from 'components/base/myline'
 
 <style lang="stylus" scoped>
 @import "~base/base.styl"
-
 .job-left
 	text-align:center
 .applyNum

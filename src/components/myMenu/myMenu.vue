@@ -12,11 +12,11 @@
                     <div class="company-func">
                         <div class="company-func-item">
                             <i class="iconfont icon-fabu"></i>
-                            <p class="func-name">发职位</p>
+                            <p class="func-name" @click="postJob">发职位</p>
                         </div>
                         <div class="company-func-item">
                             <i class="iconfont icon-sousuo"></i>
-                            <p class="func-name">搜人才</p>
+                            <p class="func-name" @click="goSearchInput">搜人才</p>
                         </div>
                     </div>
                     <ul class="menu-list">
@@ -27,21 +27,14 @@
                             </div>
                             <i class="iconfont icon-jiantouyou"></i>
                         </router-link> -->
-                        <li @click="goSearch" class="active">
+                        <li @click="goSearch" :class="{'active':url.indexOf('searchAll')>-1}">
                             <div>
                                 <i class="iconfont icon-juhe"></i>
                                 <p class="menu-item-name">聚合搜索</p>
                             </div>
                             <i class="iconfont icon-jiantouyou"></i>
                         </li>
-                        <li>
-                            <div>
-                                <i class="iconfont icon-zhanghu"></i>
-                                <p class="menu-item-name">账户管理</p>
-                            </div>
-                            <i class="iconfont icon-jiantouyou"></i>
-                        </li>
-                        <li @click="gojobMGT">
+                        <li @click="gojobMGT" :class="{'active':url.indexOf('jobOnline')>-1||url.indexOf('jobOffline')>-1}">
                             <div>
                                 <i class="iconfont icon-zhiwei"></i>
                                 <p class="menu-item-name">职位管理</p>
@@ -91,13 +84,20 @@ import {mapMutations,mapGetters,mapState} from 'vuex'
 export default{
     data(){
         return{
-
+            url:''
         }
     },
     methods:{
         _close(){
             // console.log(this.close)
             this.close(false)
+        },
+        goSearchInput(){
+            this.$router.push('/searchInput')
+        },
+        postJob(){
+            this.$router.push('/postJob')
+            this._close()
         },
         goSearch(){
             this.$router.push('/searchAll')
@@ -115,6 +115,12 @@ export default{
         ...mapMutations({
             close:'close'
         })
+    },
+    watch:{
+        $route(n,o){
+            this.url = this.$route.path
+            // console.log(this.$route.path.indexOf('searchAll'))
+        }
     },
     computed:{
         ...mapGetters([

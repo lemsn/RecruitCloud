@@ -159,8 +159,10 @@ export default{
                     this.errorShow = ''
                     console.log('下一步',res.data.data);
                     this.$router.push('/searchAll')
+                }else if(res.data.code === 401){
+                    this.$router.push('login')
                 }else{
-                    this.errorShow = '状态码不为200'
+                    this.errorShow = '状态码为'+res.data.code
                 }
             }).catch(()=>{
                 this.errorShow = '发送失败(地区应该发送index值),post url也不对(未找到)'
@@ -197,7 +199,7 @@ export default{
 </script>
 
 <style lang="stylus">
-@import '~base/base.styl'
+@import "~base/base.styl"
 
 .steps
     background:$gray

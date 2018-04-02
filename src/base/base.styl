@@ -52,7 +52,7 @@
     font-size:13px
     border-radius:5px
     padding:10px 15px
-    border: 1px solid #26a2ff;
+    border: 1px solid #ccc;
     background-color: #fff!important
     color: #333;
 .flex
@@ -130,6 +130,23 @@ bottomline()
         height: 1px
         background:#e9eef5
 // 通用
+.search-box
+    position:fixed
+    right:10px
+    top:10px
+    left:36px
+    .mint-cell
+        min-height:22px
+        border-radius:3px
+    .mint-field-core
+        line-height:1
+        font-size:14px
+    .mint-cell-wrapper
+        padding-left:30px
+.align-start
+    padding-top: 5px;
+    .mint-cell-wrapper
+        align-items:flex-start
 .rightArrow
     color:#c3cad3
     font-weight:bold
@@ -231,3 +248,10 @@ bottomline()
     transition: all 0.3s ease
 .slide-move-leave-to
     transform:translate3d(0,0,0)
+
+.slide-across-enter
+    transform:translate3d(100%,0,0)
+.slide-across-enter-active,.slide-across-leave-active
+    transition: all 0.3s ease
+.slide-across-leave-to
+    transform:translate3d(-100%,0,0)
